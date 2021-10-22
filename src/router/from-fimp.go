@@ -2,6 +2,7 @@ package router
 
 import (
 	"fmt"
+	"math"
 	"path/filepath"
 	"reflect"
 	"strconv"
@@ -107,34 +108,22 @@ func (fc *FromFimpRouter) routeFimpMessage(newMsg *fimpgo.Message) {
 		switch newMsg.Payload.Type {
 		case "cmd.setpoint.set":
 			val, _ := newMsg.Payload.GetStrMapValue()
-			var newTempInt int
-			var halfTemp int
-			var err error
-			var newTemp string
-			if strings.Contains(val["temp"], ".") {
-				valTemp := strings.Split(val["temp"], ".")
-				newTempInt, err = strconv.Atoi(valTemp[0])
-				halfTemp, err = strconv.Atoi(valTemp[1])
-				if err != nil {
-					// handle err
-					log.Error(fmt.Errorf("Can't convert to string, error: ", err))
-				}
-				if halfTemp > 0 {
-					newTempInt++
-				}
-				newTemp = strconv.Itoa(newTempInt)
-			} else {
-				newTemp = val["temp"]
+			valFloat, err := strconv.ParseFloat(val["temp"], 64)
+			if err != nil {
+				// Handle error
+				log.Error("Could not convert to float, something wrong in setpoint value. Declining request, value: ", val["temp"], ", error: ", err)
+				break
 			}
-			deviceID := addr
 
+			newTemp := strconv.Itoa(int(math.Ceil(valFloat)))
+			deviceID := addr
 			if config.TempControl(fc.configs.Auth.AccessToken, deviceID, newTemp) {
 				adr := &fimpgo.Address{MsgType: fimpgo.MsgTypeEvt, ResourceType: fimpgo.ResourceTypeDevice, ResourceName: model.ServiceName, ResourceAddress: "1", ServiceName: "thermostat", ServiceAddress: addr}
 				msg := fimpgo.NewMessage("evt.setpoint.report", "thermostat", fimpgo.VTypeStrMap, val, nil, nil, newMsg.Payload)
 				fc.mqt.Publish(adr, msg)
 				log.Info("Temperature setpoint updated, new setpoint ", newTemp)
 			} else {
-				log.Error("something went wrong when changing temperature")
+				log.Error("Something went wrong when changing temperature")
 			}
 
 		case "cmd.setpoint.get_report":
