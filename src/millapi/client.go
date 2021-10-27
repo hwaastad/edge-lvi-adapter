@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/thingsplex/mill/model"
+	"github.com/futurehomeno/mill/model"
 
 	"github.com/futurehomeno/fimpgo"
 	"github.com/futurehomeno/fimpgo/utils"

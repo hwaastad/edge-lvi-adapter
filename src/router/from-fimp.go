@@ -13,8 +13,8 @@ import (
 	"github.com/futurehomeno/fimpgo"
 	log "github.com/sirupsen/logrus"
 
-	mill "github.com/thingsplex/mill/millapi"
-	"github.com/thingsplex/mill/model"
+	mill "github.com/futurehomeno/mill/millapi"
+	"github.com/futurehomeno/mill/model"
 )
 
 type FromFimpRouter struct {
