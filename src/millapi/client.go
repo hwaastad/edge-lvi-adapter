@@ -303,7 +303,6 @@ func (cf *Config) TempControl(accessToken string, deviceId string, newTemp strin
 		return fmt.Errorf("%s%d", "errorcode from request: ", cf.ErrorCode)
 	}
 	return nil
-	// return fmt.Errorf("errorcode from request: " + strconv.Itoa(cf.ErrorCode))
 }
 
 func (cf *Config) ModeControl(accessToken string, deviceId string, oldTemp int64, newMode string) bool {
