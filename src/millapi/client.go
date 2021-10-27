@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"os"
 
-	"github.com/thingsplex/mill/model"
+	"github.com/futurehomeno/mill/model"
 
 	"github.com/futurehomeno/fimpgo"
 	"github.com/futurehomeno/fimpgo/utils"
@@ -284,12 +284,11 @@ func (c *Client) GetIndependentDevices(accessToken string, homeId int64) (*Clien
 	return c, nil
 }
 
-func (cf *Config) TempControl(accessToken string, deviceId string, newTemp string) bool {
+func (cf *Config) TempControl(accessToken string, deviceId string, newTemp string) error {
 	url := fmt.Sprintf("%s%s%s%s%s%s", deviceControlURL, "?deviceId=", deviceId, "&holdTemp=", newTemp, "&operation=1&status=1")
 	req, err := http.NewRequest("POST", url, nil)
 	if err != nil {
-		// handle err
-		log.Error(fmt.Errorf("Can't controll device, error: ", err))
+		return err
 	}
 	req.Header.Set("Accept", "*/*")
 	req.Header.Set("Access_token", accessToken)
@@ -297,13 +296,13 @@ func (cf *Config) TempControl(accessToken string, deviceId string, newTemp strin
 	resp, err := http.DefaultClient.Do(req)
 	processHTTPResponse(resp, err, cf)
 	if err != nil {
-		log.Debug("Error in DeviceControl: ", err)
+		return err
 	}
 	log.Debug("url: ", url)
-	if cf.ErrorCode == 0 {
-		return true
+	if cf.ErrorCode != 0 {
+		return fmt.Errorf("errorcode from request: %d", cf.ErrorCode)
 	}
-	return false
+	return nil
 }
 
 func (cf *Config) ModeControl(accessToken string, deviceId string, oldTemp int64, newMode string) bool {

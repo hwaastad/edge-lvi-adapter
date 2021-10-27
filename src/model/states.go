@@ -10,8 +10,8 @@ import (
 	"strconv"
 	"time"
 
+	"github.com/futurehomeno/mill/utils"
 	log "github.com/sirupsen/logrus"
-	"github.com/thingsplex/mill/utils"
 )
 
 type States struct {

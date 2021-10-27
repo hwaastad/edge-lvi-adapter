@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/futurehomeno/fimpgo"
+	"github.com/futurehomeno/mill/utils"
 	log "github.com/sirupsen/logrus"
-	"github.com/thingsplex/mill/utils"
 )
 
 const ServiceName = "mill"
