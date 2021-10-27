@@ -2,7 +2,6 @@ package router
 
 import (
 	"fmt"
-	"math"
 	"path/filepath"
 	"reflect"
 	"strconv"
@@ -107,24 +106,7 @@ func (fc *FromFimpRouter) routeFimpMessage(newMsg *fimpgo.Message) {
 		addr = strings.Replace(addr, "l", "", 1)
 		switch newMsg.Payload.Type {
 		case "cmd.setpoint.set":
-			val, _ := newMsg.Payload.GetStrMapValue()
-			valFloat, err := strconv.ParseFloat(val["temp"], 64)
-			if err != nil {
-				// Handle error
-				log.Error("Could not convert to float, something wrong in setpoint value. Declining request, value: ", val["temp"], ", error: ", err)
-				break
-			}
-
-			newTemp := strconv.Itoa(int(math.Ceil(valFloat)))
-			deviceID := addr
-			if config.TempControl(fc.configs.Auth.AccessToken, deviceID, newTemp) {
-				adr := &fimpgo.Address{MsgType: fimpgo.MsgTypeEvt, ResourceType: fimpgo.ResourceTypeDevice, ResourceName: model.ServiceName, ResourceAddress: "1", ServiceName: "thermostat", ServiceAddress: addr}
-				msg := fimpgo.NewMessage("evt.setpoint.report", "thermostat", fimpgo.VTypeStrMap, val, nil, nil, newMsg.Payload)
-				fc.mqt.Publish(adr, msg)
-				log.Info("Temperature setpoint updated, new setpoint ", newTemp)
-			} else {
-				log.Error("Something went wrong when changing temperature")
-			}
+			fc.setpointSet(newMsg, config)
 
 		case "cmd.setpoint.get_report":
 			// You can ONLY get setpoint_report from devices that are independent(!). All devices have "holiday_temp" attribute, which for some reason is set temp on independent devices.
