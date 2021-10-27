@@ -300,7 +300,7 @@ func (cf *Config) TempControl(accessToken string, deviceId string, newTemp strin
 	}
 	log.Debug("url: ", url)
 	if cf.ErrorCode != 0 {
-		return fmt.Errorf("%s%d", "errorcode from request: ", cf.ErrorCode)
+		return fmt.Errorf("errorcode from request: %d", cf.ErrorCode)
 	}
 	return nil
 }
