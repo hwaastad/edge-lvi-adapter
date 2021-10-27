@@ -7,7 +7,6 @@ import (
 	"net/http"
 	"net/url"
 	"os"
-	"strconv"
 
 	"github.com/futurehomeno/mill/model"
 
@@ -300,10 +299,11 @@ func (cf *Config) TempControl(accessToken string, deviceId string, newTemp strin
 		return err
 	}
 	log.Debug("url: ", url)
-	if cf.ErrorCode == 0 {
-		return nil
+	if cf.ErrorCode != 0 {
+		return fmt.Errorf("%s%d", "errorcode from request: ", cf.ErrorCode)
 	}
-	return fmt.Errorf("errorcode from request: " + strconv.Itoa(cf.ErrorCode))
+	return nil
+	// return fmt.Errorf("errorcode from request: " + strconv.Itoa(cf.ErrorCode))
 }
 
 func (cf *Config) ModeControl(accessToken string, deviceId string, oldTemp int64, newMode string) bool {
