@@ -8,8 +8,8 @@ import (
 	"path/filepath"
 	"time"
 
+	"github.com/futurehomeno/edge-mill-adapter/utils"
 	"github.com/futurehomeno/fimpgo"
-	"github.com/futurehomeno/mill/utils"
 	log "github.com/sirupsen/logrus"
 )
 

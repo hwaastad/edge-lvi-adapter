@@ -4,9 +4,9 @@ import (
 	"math"
 	"strconv"
 
+	mill "github.com/futurehomeno/edge-mill-adapter/millapi"
+	"github.com/futurehomeno/edge-mill-adapter/model"
 	"github.com/futurehomeno/fimpgo"
-	mill "github.com/futurehomeno/mill/millapi"
-	"github.com/futurehomeno/mill/model"
 	log "github.com/sirupsen/logrus"
 )
 

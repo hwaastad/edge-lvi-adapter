@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"time"
 
+	mill "github.com/futurehomeno/edge-mill-adapter/millapi"
+	"github.com/futurehomeno/edge-mill-adapter/model"
+	"github.com/futurehomeno/edge-mill-adapter/router"
+	"github.com/futurehomeno/edge-mill-adapter/utils"
 	"github.com/futurehomeno/fimpgo"
 	"github.com/futurehomeno/fimpgo/discovery"
 	"github.com/futurehomeno/fimpgo/edgeapp"
-	mill "github.com/futurehomeno/mill/millapi"
-	"github.com/futurehomeno/mill/model"
-	"github.com/futurehomeno/mill/router"
-	"github.com/futurehomeno/mill/utils"
 	log "github.com/sirupsen/logrus"
 )
 

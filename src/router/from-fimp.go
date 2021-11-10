@@ -12,8 +12,8 @@ import (
 	"github.com/futurehomeno/fimpgo"
 	log "github.com/sirupsen/logrus"
 
-	mill "github.com/futurehomeno/mill/millapi"
-	"github.com/futurehomeno/mill/model"
+	mill "github.com/futurehomeno/edge-mill-adapter/millapi"
+	"github.com/futurehomeno/edge-mill-adapter/model"
 )
 
 type FromFimpRouter struct {
