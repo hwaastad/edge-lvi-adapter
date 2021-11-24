@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/futurehomeno/mill/utils"
+	"github.com/futurehomeno/edge-mill-adapter/utils"
 	log "github.com/sirupsen/logrus"
 )
 
