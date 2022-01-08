@@ -28,13 +28,13 @@ const (
 	// deviceControlForOpenApiURL is mill api to controll individual devices
 	deviceControlURL = baseURL + "uds/deviceControlForOpenApi"
 	// getIndependentDevicesURL is mill api to get list of devices in unassigned room
-	getIndependentDevicesURL = baseURL + "uds/getIndependentDevices"
+	getIndependentDevicesURL = baseURL + "uds/getIndependentDevices2020"
 	// selectDevicebyRoomURL is mill api to search device list by room
-	selectDevicebyRoomURL = baseURL + "uds/selectDevicebyRoom"
+	selectDevicebyRoomURL = baseURL + "uds/selectDevicebyRoom2020"
 	// selectHomeListURL is mill api to search housing list
 	selectHomeListURL = baseURL + "uds/selectHomeList"
 	// selectRoombyHomeURL is mill api to search room list by home
-	selectRoombyHomeURL = baseURL + "uds/selectRoombyHome"
+	selectRoombyHomeURL = baseURL + "uds/selectRoombyHome2020"
 )
 
 // Config is used to specify credential to Mill API
