@@ -108,48 +108,48 @@ func (fc *FromFimpRouter) routeFimpMessage(newMsg *fimpgo.Message) {
 		case "cmd.setpoint.set":
 			fc.setpointSet(newMsg, config)
 
-		case "cmd.setpoint.get_report":
-			// You can ONLY get setpoint_report from devices that are independent(!). All devices have "holiday_temp" attribute, which for some reason is set temp on independent devices.
-			// Will always be 0 if it is not an independent device.
-			deviceIndex, err := fc.states.FindDeviceFromDeviceID(addr)
-			if err != nil {
-				log.Error(fmt.Errorf("Can't find device from deviceID, error: ", err))
-			}
-			device := reflect.ValueOf(fc.states.DeviceCollection[deviceIndex])
-			setpointTemp := strconv.FormatInt(device.FieldByName("SetpointTemp").Interface().(int64), 10)
+		// case "cmd.setpoint.get_report":
+		// 	// You can ONLY get setpoint_report from devices that are independent(!). All devices have "holiday_temp" attribute, which for some reason is set temp on independent devices.
+		// 	// Will always be 0 if it is not an independent device.
+		// 	deviceIndex, err := fc.states.FindDeviceFromDeviceID(addr)
+		// 	if err != nil {
+		// 		log.Error(fmt.Errorf("Can't find device from deviceID, error: ", err))
+		// 	}
+		// 	device := reflect.ValueOf(fc.states.DeviceCollection[deviceIndex])
+		// 	setpointTemp := strconv.FormatInt(device.FieldByName("SetpointTemp").Interface().(int64), 10)
 
-			if setpointTemp != "0" {
-				val := map[string]interface{}{
-					"type": "heat",
-					"temp": setpointTemp,
-					"unit": "C",
-				}
-				adr := &fimpgo.Address{MsgType: fimpgo.MsgTypeEvt, ResourceType: fimpgo.ResourceTypeDevice, ResourceName: model.ServiceName, ResourceAddress: "1", ServiceName: "thermostat", ServiceAddress: addr}
-				msg := fimpgo.NewMessage("evt.setpoint.report", "thermostat", fimpgo.VTypeStrMap, val, nil, nil, newMsg.Payload)
-				fc.mqt.Publish(adr, msg)
-			}
+		// 	if setpointTemp != "0" {
+		// 		val := map[string]interface{}{
+		// 			"type": "heat",
+		// 			"temp": setpointTemp,
+		// 			"unit": "C",
+		// 		}
+		// 		adr := &fimpgo.Address{MsgType: fimpgo.MsgTypeEvt, ResourceType: fimpgo.ResourceTypeDevice, ResourceName: model.ServiceName, ResourceAddress: "1", ServiceName: "thermostat", ServiceAddress: addr}
+		// 		msg := fimpgo.NewMessage("evt.setpoint.report", "thermostat", fimpgo.VTypeStrMap, val, nil, nil, newMsg.Payload)
+		// 		fc.mqt.Publish(adr, msg)
+		// 	}
 
-		case "cmd.mode.set":
-			val, _ := newMsg.Payload.GetStringValue()
-			log.Debug("Trying to set new mode: ", val)
+		// case "cmd.mode.set":
+		// 	val, _ := newMsg.Payload.GetStringValue()
+		// 	log.Debug("Trying to set new mode: ", val)
 
-			deviceIndex, err := fc.states.FindDeviceFromDeviceID(addr)
-			if err != nil {
-				log.Error(fmt.Errorf("Can't find device from deviceID, error: ", err))
-			}
-			device := reflect.ValueOf(fc.states.DeviceCollection[deviceIndex])
-			currentSetTemp := device.FieldByName("SetpointTemp").Interface().(int64)
-			log.Debug("setpointTemp: ", currentSetTemp)
+		// 	deviceIndex, err := fc.states.FindDeviceFromDeviceID(addr)
+		// 	if err != nil {
+		// 		log.Error(fmt.Errorf("Can't find device from deviceID, error: ", err))
+		// 	}
+		// 	device := reflect.ValueOf(fc.states.DeviceCollection[deviceIndex])
+		// 	currentSetTemp := device.FieldByName("SetpointTemp").Interface().(int64)
+		// 	log.Debug("setpointTemp: ", currentSetTemp)
 
-			if config.ModeControl(fc.configs.Auth.AccessToken, addr, currentSetTemp, val) {
-				adr := &fimpgo.Address{MsgType: fimpgo.MsgTypeEvt, ResourceType: fimpgo.ResourceTypeDevice, ResourceName: model.ServiceName, ResourceAddress: "1", ServiceName: "thermostat", ServiceAddress: addr}
-				msg := fimpgo.NewMessage("evt.mode.report", "thermostat", fimpgo.VTypeString, val, nil, nil, newMsg.Payload)
-				fc.mqt.Publish(adr, msg)
-				log.Info("Mode updated, new mode: ", val)
-			} else {
-				log.Error("Something went wrong when changing mode")
-			}
-			// Do we need this? Will/should allways be heat
+		// 	if config.ModeControl(fc.configs.Auth.AccessToken, addr, currentSetTemp, val) {
+		// 		adr := &fimpgo.Address{MsgType: fimpgo.MsgTypeEvt, ResourceType: fimpgo.ResourceTypeDevice, ResourceName: model.ServiceName, ResourceAddress: "1", ServiceName: "thermostat", ServiceAddress: addr}
+		// 		msg := fimpgo.NewMessage("evt.mode.report", "thermostat", fimpgo.VTypeString, val, nil, nil, newMsg.Payload)
+		// 		fc.mqt.Publish(adr, msg)
+		// 		log.Info("Mode updated, new mode: ", val)
+		// 	} else {
+		// 		log.Error("Something went wrong when changing mode")
+		// 	}
+		// Do we need this? Will/should allways be heat
 
 		case "cmd.mode.get_report":
 			val := "heat"
