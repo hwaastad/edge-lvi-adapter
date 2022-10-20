@@ -1,23 +1,23 @@
-# Futurehome Mill Adapter
+# Futurehome LVI Adapter
 
-Adapter connects with api and retrieves list of homes, rooms and devices connected to your mill user.
+Adapter connects with api and retrieves list of homes, rooms and devices connected to your LVI user.
 
 Use `make deb-arm` to make package. 
 
-After adapter is installed on hub, go to playground -> Mill -> settings -> login
+After adapter is installed on hub, go to playground -> LVI -> settings -> login
 
 After logging in this message will be sent to FIMP:
 
 `Topic`
 ```
-pt:j1/mt:evt/rt:dev/rn:mill/ad:1
+pt:j1/mt:evt/rt:dev/rn:lvi/ad:1
 ```
 
 `Payload`
 ```json
     {
     "type": "cmd.auth.set_tokens",
-    "serv": "mill",
+    "serv": "lvi",
     "val_t": "str_map",
     "val": {
         "username": "appUsername",
@@ -32,11 +32,11 @@ The program saves all configs such as credentials, expiretimes and devices so th
 
 ***
 
-After logging into the Mill app in playgrounds, all devices connected to your Mill user will be included in the Futurehome app. To activate a device you need to place it in a room, and then set the room temperature. Your device will then periodically send temperature reports, and will be controlled automatically by Futurehome's climate controll.
+After logging into the LVI app in playgrounds, all devices connected to your LVI user will be included in the Futurehome app. To activate a device you need to place it in a room, and then set the room temperature. Your device will then periodically send temperature reports, and will be controlled automatically by Futurehome's climate controll.
 
-Initially the devices will send temperature reports every 5 minutes. This can be changed at any time by going to playground -> Mill -> settings -> advanced setup -> `Poll Time`. You can set Poll Time to any whole number from 1 to inf minutes. 
+Initially the devices will send temperature reports every 5 minutes. This can be changed at any time by going to playground -> LVI -> settings -> advanced setup -> `Poll Time`. You can set Poll Time to any whole number from 1 to inf minutes. 
 
-If you have devices on your Mill account that you dont want in the Futurehome app, simply go to device and click `delete`. If you change your mind, or delete a device by accident, you can reinclude all devices by going to playground -> Mill -> settings -> advanced setup -> `sync`. 
+If you have devices on your LVI account that you dont want in the Futurehome app, simply go to device and click `delete`. If you change your mind, or delete a device by accident, you can reinclude all devices by going to playground -> LVI -> settings -> advanced setup -> `sync`. 
 ***
 
 ## Services and interfaces
