@@ -1,14 +1,14 @@
 import sys
 
 def set_deb_control(version , arch,file_name):
-    template = "Package: mill\n"
+    template = "Package: lvi\n"
     template+= "Version: "+version+"\n"
-    template+= "Replaces: mill\n"
+    template+= "Replaces: lvi\n"
     template+= "Section: non-free/misc\n"
     template+= "Priority: optional\n"
     template+= "Architecture: "+arch+"\n"
-    template+= "Maintainer: Markus Haldorsen <markus@futurehome.no>\n"
-    template+= "Description: Mill-wifi adapter for futurehome system\n"
+    template+= "Maintainer: Helge Waastad <helge@waastad.org>\n"
+    template+= "Description: LVI-wifi adapter for futurehome system\n"
 
     f = open(file_name,"w")
     f.write(template)

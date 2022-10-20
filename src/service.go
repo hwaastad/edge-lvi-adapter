@@ -7,13 +7,13 @@ import (
 	"strconv"
 	"time"
 
-	mill "github.com/futurehomeno/edge-mill-adapter/millapi"
-	"github.com/futurehomeno/edge-mill-adapter/model"
-	"github.com/futurehomeno/edge-mill-adapter/router"
-	"github.com/futurehomeno/edge-mill-adapter/utils"
 	"github.com/futurehomeno/fimpgo"
 	"github.com/futurehomeno/fimpgo/discovery"
 	"github.com/futurehomeno/fimpgo/edgeapp"
+	lvi "github.com/hwaastad/edge-lvi-adapter/lviapi"
+	"github.com/hwaastad/edge-lvi-adapter/model"
+	"github.com/hwaastad/edge-lvi-adapter/router"
+	"github.com/hwaastad/edge-lvi-adapter/utils"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -39,11 +39,11 @@ func main() {
 		fmt.Print(err)
 		panic("Can't load state file.")
 	}
-	client := mill.Client{}
-	config := mill.Config{}
+	client := lvi.Client{}
+	config := lvi.Config{}
 
 	utils.SetupLog(configs.LogFile, configs.LogLevel, configs.LogFormat)
-	log.Info("--------------Starting mill----------------")
+	log.Info("--------------Starting lvi----------------")
 	log.Info("Work directory : ", configs.WorkDir)
 	appLifecycle.PublishEvent(model.EventConfiguring, "main", nil)
 
@@ -118,13 +118,13 @@ func main() {
 					log.Debug("expiretime is OK")
 				}
 			}
-			states.DeviceCollection, states.RoomCollection, states.HomeCollection, states.IndependentDeviceCollection = nil, nil, nil, nil
-			states.HomeCollection, states.RoomCollection, states.DeviceCollection, states.IndependentDeviceCollection = client.UpdateLists(configs.Auth.AccessToken, states.HomeCollection, states.RoomCollection, states.DeviceCollection, states.IndependentDeviceCollection)
+			states.DeviceCollection, states.RoomCollection, states.HomeCollection = nil, nil, nil
+			states.HomeCollection, states.RoomCollection, states.DeviceCollection = client.UpdateLists(configs.Auth.AccessToken, states.HomeCollection, states.RoomCollection, states.DeviceCollection)
 
 			for i := 0; i < len(states.DeviceCollection); i++ {
 				device := reflect.ValueOf(states.DeviceCollection[i])
-				deviceId := strconv.FormatInt(device.FieldByName("DeviceID").Interface().(int64), 10)
-				currentTemp := device.FieldByName("AmbientTemp").Interface().(float64)
+				deviceId := strconv.FormatInt(device.FieldByName("device_id").Interface().(int64), 10)
+				currentTemp := device.FieldByName("temperature_air").Interface().(float64)
 				tempVal := currentTemp
 				props := fimpgo.Props{}
 				props["unit"] = "C"

@@ -1,4 +1,4 @@
-module github.com/futurehomeno/edge-mill-adapter
+module github.com/futurehomeno/edge-lvi-adapter
 
 require (
 	github.com/BurntSushi/toml v0.3.1 // indirect

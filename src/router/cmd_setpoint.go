@@ -4,13 +4,13 @@ import (
 	"math"
 	"strconv"
 
-	mill "github.com/futurehomeno/edge-mill-adapter/millapi"
-	"github.com/futurehomeno/edge-mill-adapter/model"
 	"github.com/futurehomeno/fimpgo"
+	lvi "github.com/hwaastad/edge-lvi-adapter/lviapi"
+	"github.com/hwaastad/edge-lvi-adapter/model"
 	log "github.com/sirupsen/logrus"
 )
 
-func (fc *FromFimpRouter) setpointSet(oldMsg *fimpgo.Message, config mill.Config) {
+func (fc *FromFimpRouter) setpointSet(oldMsg *fimpgo.Message, config lvi.Config) {
 	addr := oldMsg.Addr.ServiceAddress
 
 	val, _ := oldMsg.Payload.GetStrMapValue()

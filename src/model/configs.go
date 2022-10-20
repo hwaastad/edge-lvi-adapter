@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"time"
 
-	"github.com/futurehomeno/edge-mill-adapter/utils"
 	"github.com/futurehomeno/fimpgo"
 	log "github.com/sirupsen/logrus"
+	"github.com/waastad/edge-lvi-adapter/utils"
 )
 
 const ServiceName = "mill"

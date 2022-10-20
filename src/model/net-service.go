@@ -66,7 +66,7 @@ func (ns *NetworkService) SendInclusionReport(nodeId int, DeviceCollection []int
 	thermostatService := fimptype.Service{
 		Name:    "thermostat",
 		Alias:   "thermostat",
-		Address: "/rt:dev/rn:mill/ad:1/sv:thermostat/ad:",
+		Address: "/rt:dev/rn:lvi/ad:1/sv:thermostat/ad:",
 		Enabled: true,
 		Groups:  []string{"ch_0"},
 		Props: map[string]interface{}{
@@ -79,7 +79,7 @@ func (ns *NetworkService) SendInclusionReport(nodeId int, DeviceCollection []int
 	tempSensorService := fimptype.Service{
 		Name:    "sensor_temp",
 		Alias:   "Temperature sensor",
-		Address: "/rt:dev/rn:mill/ad:1/sv:sensor_temp/ad:",
+		Address: "/rt:dev/rn:lvi/ad:1/sv:sensor_temp/ad:",
 		Enabled: true,
 		Groups:  []string{"ch_0"},
 		Props: map[string]interface{}{
@@ -92,9 +92,9 @@ func (ns *NetworkService) SendInclusionReport(nodeId int, DeviceCollection []int
 
 	device := DeviceCollection[nodeId]
 	val := reflect.ValueOf(device)
-	deviceId = strconv.FormatInt(val.FieldByName("DeviceID").Interface().(int64), 10)
-	manufacturer = "mill"
-	name = val.FieldByName("DeviceName").Interface().(string)
+	deviceId = strconv.FormatInt(val.FieldByName("device_id").Interface().(int64), 10)
+	manufacturer = "lvi"
+	name = val.FieldByName("nom_appareil").Interface().(string)
 	serviceAddress := fmt.Sprintf("%s", deviceId)
 	thermostatService.Address = thermostatService.Address + serviceAddress
 	tempSensorService.Address = tempSensorService.Address + serviceAddress

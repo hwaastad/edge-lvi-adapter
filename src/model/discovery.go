@@ -13,7 +13,7 @@ func GetDiscoveryResource() discovery.Resource {
 		InstanceId:             "1",
 		Version:                "1",
 		AdapterInfo: discovery.AdapterInfo{
-			Technology:            "mill",
+			Technology:            "lvi",
 			FwVersion:             "all",
 			NetworkManagementType: "inclusion_exclusion",
 			// Services:              nil, // Services must be defines in manifest

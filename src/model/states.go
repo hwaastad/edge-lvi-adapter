@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/futurehomeno/edge-mill-adapter/utils"
+	"github.com/hwaastad/edge-lvi-adapter/utils"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -23,10 +23,9 @@ type States struct {
 	ConfiguredAt string `json:"configuret_at"`
 	ConfiguredBy string `json:"configures_by"`
 
-	HomeCollection              []interface{}
-	RoomCollection              []interface{}
-	DeviceCollection            []interface{}
-	IndependentDeviceCollection []interface{}
+	HomeCollection   []interface{}
+	RoomCollection   []interface{}
+	DeviceCollection []interface{}
 }
 
 func NewStates(workDir string) *States {
@@ -102,15 +101,7 @@ func (st *States) FindDeviceFromDeviceID(addr string) (index int, err error) {
 
 	for i := 0; i < len(st.DeviceCollection); i++ {
 		val := reflect.ValueOf(st.DeviceCollection[i])
-		deviceId := strconv.FormatInt(val.FieldByName("DeviceID").Interface().(int64), 10)
-		if deviceId == addr {
-			index = i
-			return index, nil
-		}
-	}
-	for i := 0; i < len(st.IndependentDeviceCollection); i++ {
-		val := reflect.ValueOf(st.IndependentDeviceCollection[i])
-		deviceId := strconv.FormatInt(val.FieldByName("DeviceID").Interface().(int64), 10)
+		deviceId := strconv.FormatInt(val.FieldByName("device_id").Interface().(int64), 10)
 		if deviceId == addr {
 			index = i
 			return index, nil
