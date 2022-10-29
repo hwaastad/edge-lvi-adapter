@@ -39,6 +39,20 @@
       "is_required": false,
       "hidden": false,
       "config_point": "any"
+    },
+    {
+      "id": "smarthome_id",
+      "label": {"en": "The primary SmartHome Id"},
+      "val_t": "string",
+      "ui": {
+        "type": "input_string"
+      },
+      "val": {
+        "default": ""
+      },
+      "is_required": true,
+      "hidden": false,
+      "config_point": "any"
     }
   ],
   "ui_buttons": [
@@ -46,7 +60,7 @@
       "id":"sync",
       "label": {"en": "sync"},
       "req": {
-        "serv":"mill",
+        "serv":"lvi",
         "intf_t": "cmd.system.sync",
         "val": ""
       },
@@ -56,8 +70,8 @@
   "ui_blocks": [
     {
       "id":"sync",
-      "header": {"en": "Synchronize with Mill app"},
-      "text": {"en": "The app will find and include all devices connected to your Mill user. You need to be logged in before synchronizing."},
+      "header": {"en": "Synchronize with LVI app"},
+      "text": {"en": "The app will find and include all devices connected to your LVI user. You need to be logged in before synchronizing."},
       "configs": [],
       "buttons": ["sync"],
       "footer": {"en": ""}
@@ -65,7 +79,7 @@
     {
       "id":"settings",
       "header": {"en": "Settings"},
-      "text": {"en": "Set how often you want futurehome to get temperature reports from Mill in minutes. After changing this value you need to stop and start the Mill app in playgrounds."},
+      "text": {"en": "Set how often you want futurehome to get temperature reports from LVI in minutes. After changing this value you need to stop and start the LVI app in playgrounds."},
       "configs": ["poll_time_min"],
       "buttons": [],
       "footer": {"en": ""},
@@ -84,9 +98,9 @@
   "init_flow":["auth", "connect"],
   "services": [
     {
-      "name": "mill",
+      "name": "lvi",
       "alias": "Network managment",
-      "address": "/rt:ad/rn:mill/ad:1",
+      "address": "/rt:ad/rn:lvi/ad:1",
       "interfaces": [
         {
           "intf_t": "in",

@@ -9,8 +9,8 @@ import (
 	"time"
 
 	"github.com/futurehomeno/fimpgo"
+	"github.com/hwaastad/edge-lvi-adapter/utils"
 	log "github.com/sirupsen/logrus"
-	"github.com/waastad/edge-lvi-adapter/utils"
 )
 
 const ServiceName = "mill"
@@ -31,6 +31,7 @@ type Configs struct {
 	Param1             bool   `json:"param_1"`
 	Param2             string `json:"param_2"`
 	PollTimeMin        string `json:"poll_time_min"`
+	SmartHomeId        string `json:"smartjome_id"`
 
 	Username string `json:"username"` // this should be moved
 	Password string `json:"password"` // this should be moved

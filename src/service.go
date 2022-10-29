@@ -10,6 +10,7 @@ import (
 	"github.com/futurehomeno/fimpgo"
 	"github.com/futurehomeno/fimpgo/discovery"
 	"github.com/futurehomeno/fimpgo/edgeapp"
+
 	lvi "github.com/hwaastad/edge-lvi-adapter/lviapi"
 	"github.com/hwaastad/edge-lvi-adapter/model"
 	"github.com/hwaastad/edge-lvi-adapter/router"

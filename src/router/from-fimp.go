@@ -199,7 +199,7 @@ func (fc *FromFimpRouter) routeFimpMessage(newMsg *fimpgo.Message) {
 
 		case "cmd.auth.set_tokens":
 			if fc.configs.Auth.AuthorizationCode != "" {
-				fc.configs.Auth.AccessToken, fc.configs.Auth.RefreshToken, fc.configs.Auth.ExpireTime, fc.configs.Auth.RefreshExpireTime = config.NewClient(fc.configs.Auth.AuthorizationCode, fc.configs.Password, fc.configs.Username)
+				fc.configs.Auth.AccessToken, fc.configs.Auth.RefreshToken, fc.configs.Auth.ExpireTime, fc.configs.Auth.RefreshExpireTime, fc.configs.SmartHomeId = config.NewClient(fc.configs.Auth.AuthorizationCode, fc.configs.Password, fc.configs.Username, fc.configs.SmartHomeId)
 				fc.configs.Username = ""
 				fc.configs.Password = ""
 				fc.configs.SaveToFile()

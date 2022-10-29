@@ -9,6 +9,7 @@
   "log_level": "debug",
   "log_format": "text",
   "poll_time_min": "5",
+  "smarthome_id": "1483",
   "Auth": {
     "authorization_code": ""
   }

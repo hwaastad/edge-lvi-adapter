@@ -397,7 +397,7 @@ func processHTTPResponse(resp *http.Response, err error, holder interface{}) err
 	return nil
 }
 
-func (c *Client) UpdateLists(accessToken string, hc []interface{}, rc []interface{}, dc []interface{}, idc []interface{}) (homelist []interface{}, roomlist []interface{}, devicelist []interface{}) {
+func (c *Client) UpdateLists(accessToken string, hc []interface{}, rc []interface{}, dc []interface{}) (homelist []interface{}, roomlist []interface{}, devicelist []interface{}) {
 	allDevices, allRooms, allHomes, err := c.GetAllDevices(accessToken)
 	if err != nil {
 		// handle err
